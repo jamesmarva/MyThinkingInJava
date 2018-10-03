@@ -14,6 +14,12 @@ public class LiftOff implements Runnable {
     // 类一旦初始化成为对象之后，final的变量就不可以改变了。
     private final int id = taskCount++;
 
+    public LiftOff() {}
+
+    public LiftOff(int countDown) {
+        this.countDown = countDown;
+    }
+
     public String status() {
         return "# " + id +" () " + (countDown > 0? countDown : "lift off!");
     }
@@ -24,7 +30,6 @@ public class LiftOff implements Runnable {
 //            taskCount ++;
             System.out.println(status());
 //            什么作用？
-
             Thread.yield();
         }
     }
