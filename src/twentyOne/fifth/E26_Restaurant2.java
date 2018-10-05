@@ -45,7 +45,6 @@ class WaitPerson2 implements Runnable {
 
             }
         } catch (InterruptedException e) {
-//            e.printStackTrace();
             System.out.println("WaitPerson interrupted");
         }
     }
@@ -126,8 +125,9 @@ class Restaurant2 {
     ExecutorService exec = Executors.newCachedThreadPool();
 
     public Restaurant2() {
-        exec.execute(waitPerson2);
         exec.execute(chef2);
+        exec.execute(waitPerson2);
+
         exec.execute(busBoy);
     }
 }
