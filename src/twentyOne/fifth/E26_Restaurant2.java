@@ -28,7 +28,7 @@ class WaitPerson2 implements Runnable {
         try {
             while (!Thread.interrupted()) {
                 synchronized (this) {
-                    while(restaurant2.meal == null && restaurant2.ifCleanUp) {
+                    while(restaurant2.meal == null || restaurant2.ifCleanUp) {
                         wait();
                     }
                 }
@@ -38,11 +38,9 @@ class WaitPerson2 implements Runnable {
                     restaurant2.chef2.notifyAll();
                 }
                 synchronized (restaurant2.busBoy) {
-                    restaurant2.ifCleanUp = false;
-                    restaurant2.busBoy.notify();
+                    restaurant2.ifCleanUp = true;
+                    restaurant2.busBoy.notifyAll();
                 }
-
-
             }
         } catch (InterruptedException e) {
             System.out.println("WaitPerson interrupted");
@@ -63,19 +61,18 @@ class BusBoy implements Runnable {
         try {
             while (!Thread.interrupted()) {
                 synchronized (this) {
-                    while(restaurant2.meal == null && restaurant2.ifCleanUp) {
+                    while (!restaurant2.ifCleanUp) {
                         wait();
                     }
-
                 }
                 System.out.println("BusBoy begin to clean.");
                 synchronized (restaurant2.waitPerson2) {
-                    restaurant2.ifCleanUp = true;
+                    restaurant2.ifCleanUp = false;
                     restaurant2.waitPerson2.notifyAll();
                 }
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("BusBoy interrupted");
         }
     }
 }
@@ -127,7 +124,6 @@ class Restaurant2 {
     public Restaurant2() {
         exec.execute(chef2);
         exec.execute(waitPerson2);
-
         exec.execute(busBoy);
     }
 }
