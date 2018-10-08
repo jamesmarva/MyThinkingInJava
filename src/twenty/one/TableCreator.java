@@ -1,13 +1,12 @@
 package twenty.one;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
  * @author james reall008@163.com  10/7/2018
  */
 public class TableCreator {
@@ -72,11 +71,6 @@ public class TableCreator {
 
     }
 
-//
-//    private static String getName() {
-//
-//    }
-
     private static String getConstraints(Constraints con) {
         String constraints = "";
 
@@ -94,5 +88,4 @@ public class TableCreator {
 
         return constraints;
     }
-
 }
