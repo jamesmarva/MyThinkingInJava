@@ -17,8 +17,9 @@ public class UseCaseTracker {
             if (useCase != null) {
                 System.out.println("Found Use Case:" + useCase.id() + " "
                         + useCase.description());
-                useCases.remove(useCase.id());
+
             }
+//            useCases.remove(useCase.id());
         }
         for (int i : useCases) {
             System.out.println("Warning: Missing use case-" + i);
@@ -27,7 +28,7 @@ public class UseCaseTracker {
 
     public static void main(String[] args) {
         List<Integer> useCases = new ArrayList<>();
-        Collections.addAll(useCases, 47, 57, 67, 77);
+        Collections.addAll(useCases, 47, 48, 49);
         trackUseCases(useCases, PasswordUtils.class);
     }
 }
